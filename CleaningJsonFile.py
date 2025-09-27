@@ -29,7 +29,7 @@ def read_json_file(json_file):
 def write_reviews_into_csv(all_reviews):
     df = pd.DataFrame(all_reviews, columns=['review_body', 'headline', 'rating_value'])
     df = pd.DataFrame(all_reviews)
-    df.to_csv("trainings_data_reviews.csv", index=True)
+    df.to_csv("cleaned_data/trainings_data_reviews.csv", index=True)
 
 
 write_reviews_into_csv(read_json_file("Raw_Data/reviews_ab_author.json"))
