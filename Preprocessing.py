@@ -1,19 +1,20 @@
+import os
+
 import joblib
 import spacy
 import pandas
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 from sklearn.linear_model import LogisticRegression
 
-csv_path = "cleaned_data/trainings_data_reviews.csv"
-
+csv_path = "cleaned_data/trustpilot_reviews_with_ratings.csv"
 
 def read_csv_file(filename):
     with open(filename, "r", encoding='utf-8') as csv_file:
         df = pandas.read_csv(csv_file)
         review_body = df["review_body"].values
-        rating_value = df["rating_value"].values
+        review_rating = df["review_rating"].values
 
-    return review_body, rating_value
+    return review_body, review_rating
 
 
 class Preprocessing:
@@ -44,5 +45,9 @@ class Preprocessing:
         clf.fit(x_tfidf, y)
 
         #save model in the 'Model'-Folder
+        if not os.path.exists("Model"):
+            os.mkdir("Model")
+
         joblib.dump(clf, "Model/reviews_tfidf_model.pkl")
         joblib.dump(vectorizer, "Model/reviews_vectorizer.pkl")
+        print("Model gespeichert")
