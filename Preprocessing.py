@@ -1,10 +1,12 @@
 import os
-
 import joblib
 import spacy
 import pandas
-from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+from sklearn import metrics
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report
+from sklearn.model_selection import train_test_split
 
 csv_path = "cleaned_data/trustpilot_reviews_with_ratings.csv"
 
@@ -39,15 +41,23 @@ class Preprocessing:
             print("The number of review bodies and rating values is equal")
 
         y = rating_values # rating values (1 - 5 Stars)
-        vectorizer = TfidfVectorizer()
-        x_tfidf = vectorizer.fit_transform([' '.join(review) for review in reviews_bodies]) # read reviews from the list
-        clf = LogisticRegression(max_iter=10000)
-        clf.fit(x_tfidf, y)
+        tfidf_vectorizer = TfidfVectorizer()
+        x_tfidf = tfidf_vectorizer.fit_transform([' '.join(review) for review in reviews_bodies]) # read reviews from the list
+
+        x_train, x_test, y_train, y_test = train_test_split(x_tfidf, y, test_size=0.2, random_state=42, stratify=y)
+
+        logistic_model = LogisticRegression(max_iter=10000)
+        logistic_model.fit(x_train, y_train)
+
+
+        accurcy = metrics.accuracy_score(y_test, logistic_model.predict(x_test))
+        print(f"Genauigkeit: {accurcy:2f}")
+        print(classification_report(y_test, logistic_model.predict(x_test)))
 
         #save model in the 'Model'-Folder
         if not os.path.exists("Model"):
             os.mkdir("Model")
 
-        joblib.dump(clf, "Model/reviews_tfidf_model.pkl")
-        joblib.dump(vectorizer, "Model/reviews_vectorizer.pkl")
+        joblib.dump(logistic_model, "Model/reviews_tfidf_model.pkl")
+        joblib.dump(tfidf_vectorizer, "Model/reviews_vectorizer.pkl")
         print("Model gespeichert")

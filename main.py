@@ -6,7 +6,7 @@ if __name__ == '__main__':
     file_path = "Model/reviews_tfidf_model.pkl"
     file_exists = os.path.isfile(file_path)
     if not file_exists:
-        print("Model wird trainiert")
+        print("Model wird trainiert... Bitte warten")
         preprocessor = Preprocessing.Preprocessing()
         print("Model ist fertig")
     else:
