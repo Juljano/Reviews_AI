@@ -20,3 +20,21 @@ Im nächsten Schritt beabsichtige ich, die Trainingsdaten besser auszubalanciere
 | **Gesamtgenauigkeit** |           |        | 0.63     | 572           |
 | **Durchschnitt (Macro)** | 0.63      | 0.63   | 0.63     | 572           |
 | **Durchschnitt (Gewichtet)** | 0.63      | 0.63   | 0.63     | 572           |
+
+
+
+## Update
+
+Durch das Zusammenlegen mehrerer Klassen konnte ich den F1-Score von 67% auf beeindruckende 86% steigern. 
+
+Durch den Austausch des ML-Modells erreiche ich sogar ganze 92%.
+
+**Genauigkeit:** 0.868881 (Lineare Regressionsmodell)
+
+| Klasse       | Precision | Recall | F1-Score | Support |
+|--------------|-----------|--------|----------|---------|
+| 0            | 0.84      | 0.96   | 0.90     | 343     |
+| 2            | 0.93      | 0.73   | 0.82     | 229     |
+| **Accuracy** |           |        | **0.87** | 572     |
+| Macro Avg    | 0.88      | 0.85   | 0.86     | 572     |
+| Weighted Avg | 0.88      | 0.87   | 0.87     | 572     |
