@@ -4,7 +4,6 @@ import spacy
 import pandas
 from sklearn import metrics
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.svm import LinearSVC
@@ -56,8 +55,8 @@ class Preprocessing:
         svc_model = LinearSVC()
         svc_model.fit(x_train, y_train)
 
-        accurcy = metrics.accuracy_score(y_test, svc_model.predict(x_test))
-        print(f"Genauigkeit: {accurcy:2f}")
+        accuracy = metrics.accuracy_score(y_test, svc_model.predict(x_test))
+        print(f"Genauigkeit: {accuracy:2f}")
         print(classification_report(y_test, svc_model.predict(x_test)))
 
         #save model in the 'Model'-Folder
