@@ -1,7 +1,5 @@
 import pandas as pd
 import json
-
-
 def read_json_file(json_file):
     all_reviews = []
     with open(json_file, encoding='utf-8') as jsonfile:
